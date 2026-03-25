@@ -1,0 +1,4 @@
+/* 可通桟化 */
+.container {
+  min-height: 100vh;
+}
