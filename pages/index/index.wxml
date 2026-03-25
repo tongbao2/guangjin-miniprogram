@@ -1,0 +1,119 @@
+<view class="page">
+  <!-- 椤堕全子松 -->
+  <view class="header">
+    <view class="logo">城块噮缃</view>
+    <view class="tag">电子玉玉项直</view>
+  </view>
+  <!-- 鎼滅劳奖 -->
+  <view class="search-box">
+    <input class="search-input" placeholder="称好玉化姆取识" placeholder-class="placeholder" bindinput="onSearch" />
+    <button class="search-btn" bindtap="doSearch">称好</button>
+  </view>
+  <!-- 鍗＄墖体耈 -->
+  <scroll-view class="card-list" scroll-y="{{true}}">
+    <!-- 界界时圳 -->
+    <view class="card">
+      <view class="card-icon" style="background-color:#0D4C8F;">🌍</view>
+      <view class="card-content">
+        <view class="title">京杏运动</view>
+        <view class="desc">基础电子化类</view>
+        <view class="url">mi818.com</view>
+      </view>
+      <button class="card-btn" bindtap="openUrl" data-url="https://3g.mi818.com">相量</button>
+    </view>
+    <!-- 界光，畦 -->
+    <view class="card">
+      <view class="card-icon" style="background-color:#E63946;">📭</view>
+      <view class="card-content">
+        <view class="title">地尼游戏</view>
+        <view class="desc">人即微提功保</view>
+        <view class="url">lvdingjia.com</view>
+      </view>
+      <button class="card-btn" bindtap="openUrl" data-url="https://www.lvdingjia.com">相量</button>
+    </view>
+    <!-- 界免，恒代 -->
+    <view class="card">
+      <view class="card-icon" style="background-color:#FFA726;">🎻</view>
+      <view class="card-content">
+        <view class="title">塞张合合类</view>
+        <view class="desc">地尿宝忝胎推广</view>
+        <view class="url">ccmn.cn</view>
+      </view>
+      <button class="card-btn" bindtap="openUrl" data-url="https://m.ccmn.cn/mhangqing/">相量</button>
+    </view>
+    <!-- 界光，张国 -->
+    <view class="card">
+      <view class="card-icon" style="background-color:#6A994E;">🎿</view>
+      <view class="card-content">
+        <view class="title">台图品名</view>
+        <view class="desc">菜品合合类</view>
+        <view class="url">feijiu.net</view>
+      </view>
+      <button class="card-btn" bindtap="openUrl" data-url="https://baojia.feijiu.net">相量</button>
+    </view>
+    <!-- 界光，佳耈 -->
+    <view class="card">
+      <view class="card-icon" style="background-color:#8E44AD;">🌨</view>
+      <view class="card-content">
+        <view class="title">合后量币</view>
+        <view class="desc">保字跳转技巧</view>
+        <view class="url">feijiu.net</view>
+      </view>
+      <button class="card-btn" bindtap="openUrl" data-url="https://baojia.feijiu.net/price-p-cid-bjcid-dqid22.-.html">相量</button>
+    </view>
+    <!-- 界光，投家 -->
+    <view class="card">
+      <view class="card-icon" style="background-color:#FFD700;">⌞</view>
+      <view class="card-content">
+        <view class="title">今天金金</view>
+        <view class="desc">精精础合合类</view>
+        <view class="url">cngold.org</view>
+      </view>
+      <button class="card-btn" bindtap="openUrl" data-url="https://m.cngold.org/home/lm13/">相量</button>
+    </view>
+    <!-- 界光，畦 -->
+    <view class="card">
+      <view class="card-icon" style="background-color:#1D3557;">🌺</view>
+      <view class="card-content">
+        <view class="title">地尼日本</view>
+        <view class="desc">轮区发载性能</view>
+        <view class="url">fsmi818.com</view>
+      </view>
+      <button class="card-btn" bindtap="openUrl" data-url="http://www.fsmi818.com/news/list_pid_9.html">相量</button>
+    </view>
+    <!-- 界光，纬座 -->
+    <view class="card">
+      <view class="card-icon" style="background-color:#457B9D;">🌸</view>
+      <view class="card-content">
+        <view class="title">中金信边</view>
+        <view class="desc">精电工世男，高渭工世</view>
+        <view class="url">metalsinfo.com</view>
+      </view>
+      <button class="card-btn" bindtap="openUrl" data-url="https://www.metalsinfo.com/newsflash/index.html">相量</button>
+    </view>
+    <!-- 界光，7x24张合 -->
+    <view class="card">
+      <view class="card-icon" style="background-color:#1B9AAA;">⎆．</view>
+      <view class="card-content">
+        <view class="title">7x24日本玉玉项直</view>
+        <view class="desc">兄本成交评估性能</view>
+        <view class="url">fx678.com</view>
+      </view>
+      <button class="card-btn" bindtap="openUrl" data-url="https://www.fx678.com/kx">相量</button>
+    </view>
+    <!-- 界光，张国 -->
+    <view class="card">
+      <view class="card-icon" style="background-color:#2A9D8F;">🌕</view>
+      <view class="card-content">
+        <view class="title">号字保字功</view>
+        <view class="desc">精合合类精缔</view>
+        <view class="url">alu.cn</view>
+      </view>
+      <button class="card-btn" bindtap="openUrl" data-url="https://hq.alu.cn/3/35/p197/">相量</button>
+    </view>
+  </scroll-view>
+  <!-- 搴曢儴 -->
+  <view class="footer">
+    <view class="footer-text">星金网\.电子玉玉鯹埘</view>
+  </view>
+</view>
