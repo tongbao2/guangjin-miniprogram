@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>广金网小程序 | 金属行情导航</title>
+  <meta name="description" content="广金网微信小程序 - 快速访问 10 个热门金属行情网站，实时行情一键导航" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-deep: #0B0E14;
+      --bg: #10141C;
+      --surface: #181D28;
+      --surface-hover: #1F2535;
+      --border: #252B3B;
+      --text: #E8EAF0;
+      --text-dim: #7C829A;
+      --gold: #D4A853;
+      --gold-light: #E8C97A;
+      --gold-dark: #A07830;
+      --red: #E05252;
+      --green: #3EBB7A;
+      --blue: #4A9EEB;
+      --radius: 14px;
+      --radius-lg: 20px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans SC', sans-serif;
+      background: var(--bg-deep);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    /* Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -200px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(212,168,83,0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    header {
+      padding: 48px 0 32px;
+      text-align: center;
+    }
+
+    .logo-icon {
+      font-size: 64px;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .logo {
+      font-size: 42px;
+      font-weight: 900;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-family: 'DM Mono', monospace;
+      font-size: 14px;
+      color: var(--text-dim);
+      letter-spacing: 2px;
+    }
+
+    /* WeChat Badge */
+    .wechat-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      padding: 8px 16px;
+      background: rgba(62,187,122,0.1);
+      border: 1px solid var(--green);
+      border-radius: 24px;
+      font-size: 13px;
+      color: var(--green);
+    }
+
+    .wechat-badge .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* QR Section */
+    .qr-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      text-align: center;
+      margin: 32px 0;
+    }
+
+    .qr-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .qr-desc {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-bottom: 24px;
+    }
+
+    .qr-placeholder {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 20px;
+      background: var(--bg);
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+    }
+
+    .qr-note {
+      font-size: 12px;
+      color: var(--text-dim);
+      line-height: 1.8;
+    }
+
+    /* Features */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin: 40px 0;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      transition: all 0.25s ease;
+    }
+
+    .feature-card:hover {
+      background: var(--surface-hover);
+      border-color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .feature-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .feature-desc {
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    /* Website List */
+    .websites-section {
+      margin: 40px 0;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .website-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 12px;
+    }
+
+    .website-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: all 0.25s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .website-card:hover {
+      background: var(--surface-hover);
+      border-color: var(--gold);
+      transform: translateX(4px);
+    }
+
+    .website-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .website-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .website-name {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .website-desc {
+      font-size: 12px;
+      color: var(--text-dim);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Steps */
+    .steps-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      margin: 40px 0;
+    }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .step:last-child {
+      margin-bottom: 0;
+    }
+
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--bg-deep);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    .step-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .step-desc {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    /* Action Buttons */
+    .actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 32px 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: var(--radius);
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--bg-deep);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(212,168,83,0.3);
+    }
+
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: var(--surface-hover);
+      border-color: var(--gold);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .footer-text {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-bottom: 8px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 16px;
+    }
+
+    .footer-links a {
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Color variants for website icons */
+    .icon-blue { background: rgba(74,158,235,0.12); }
+    .icon-red { background: rgba(224,82,82,0.12); }
+    .icon-orange { background: rgba(232,148,58,0.12); }
+    .icon-green { background: rgba(62,187,122,0.12); }
+    .icon-purple { background: rgba(155,109,255,0.12); }
+    .icon-gold { background: rgba(212,168,83,0.12); }
+    .icon-navy { background: rgba(91,127,214,0.12); }
+    .icon-cyan { background: rgba(58,189,176,0.12); }
+    .icon-teal { background: rgba(42,157,143,0.12); }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      .logo { font-size: 32px; }
+      .qr-section { padding: 24px; }
+      .steps-section { padding: 20px; }
+      .actions { flex-direction: column; }
+      .btn { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <header>
+    <span class="logo-icon">🏭</span>
+    <h1 class="logo">广金网</h1>
+    <div class="subtitle">金属行情导航微信小程序</div>
+    <div class="wechat-badge">
+      <span class="dot"></span>
+      <span>微信小程序 · 即用即走</span>
+    </div>
+  </header>
+
+  <!-- QR Code Section -->
+  <section class="qr-section">
+    <h2 class="qr-title">📱 扫码使用小程序</h2>
+    <p class="qr-desc">打开微信扫描下方二维码，立即访问广金网小程序</p>
+    
+    <div class="qr-placeholder" id="qrPlaceholder">
+      📷
+    </div>
+    
+    <p class="qr-note">
+      💡 提示：小程序暂未发布上线<br>
+      📦 开发者可在微信开发者工具中预览<br>
+      🔧 或查看下方源码自行导入
+    </p>
+  </section>
+
+  <!-- Action Buttons -->
+  <div class="actions">
+    <a href="https://github.com/tongbao2/mini" target="_blank" class="btn btn-primary">
+      📦 查看源码
+    </a>
+    <button onclick="downloadCode()" class="btn btn-secondary">
+      📥 下载代码
+    </button>
+  </div>
+
+  <!-- Features -->
+  <section class="features">
+    <div class="feature-card">
+      <div class="feature-icon">🎨</div>
+      <h3 class="feature-title">简洁工业风格</h3>
+      <p class="feature-desc">深色主题，工业风格配色，专业大气</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">🔗</div>
+      <h3 class="feature-title">10 个行情网站</h3>
+      <p class="feature-desc">伦敦行情、南海铝锭、佛山报价等热门网站</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3 class="feature-title">快速访问</h3>
+      <p class="feature-desc">点击即可打开网页浏览，无需跳转</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">🔍</div>
+      <h3 class="feature-title">搜索功能</h3>
+      <p class="feature-desc">支持关键词过滤，快速找到目标网站</p>
+    </div>
+  </section>
+
+  <!-- Website List -->
+  <section class="websites-section">
+    <h2 class="section-title">
+      <span>🌐</span>
+      支持行情网站
+    </h2>
+    
+    <div class="website-grid" id="websiteGrid">
+      <!-- Dynamically generated -->
+    </div>
+  </section>
+
+  <!-- Steps Section -->
+  <section class="steps-section">
+    <h2 class="section-title" style="margin-bottom: 24px;">
+      <span>📋</span>
+      使用/开发步骤
+    </h2>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <div class="step-title">安装微信开发者工具</div>
+        <div class="step-desc">访问 <a href="https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html" style="color: var(--gold);" target="_blank">微信官方下载页</a> 安装最新版</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <div class="step-title">导入项目</div>
+        <div class="step-desc">在开发者工具中选择"导入项目"，选择本仓库目录</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <div class="step-title">配置 AppID</div>
+        <div class="step-desc">在 project.config.json 中填写你的小程序 AppID（或使用测试号）</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <div class="step-title">编译预览</div>
+        <div class="step-desc">点击"编译"按钮即可在模拟器中预览小程序效果</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-text">
+      <strong>广金网</strong> · 金属行情一键导航
+    </div>
+    <div class="footer-text">
+      数据来源：公开行情网站 | 仅供学习交流使用
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/tongbao2/mini" target="_blank">GitHub 仓库</a>
+      <a href="https://github.com/tongbao2/mini/issues" target="_blank">问题反馈</a>
+      <a href="https://developers.weixin.qq.com/miniprogram/dev/framework/" target="_blank">微信小程序文档</a>
+    </div>
+    <div class="footer-text" style="margin-top: 20px; font-size: 12px;">
+      © 2026 广金网小程序 | MIT License
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // Website data
+  var websites = [
+    { name: "伦敦行情", desc: "全球金属实时报价", icon: "🌍", cls: "icon-blue" },
+    { name: "南海铝锭", desc: "铝锭现货每日报价", icon: "🏭", cls: "icon-red" },
+    { name: "佛山报价", desc: "铜铝不锈钢行情", icon: "🏢", cls: "icon-orange" },
+    { name: "废旧市场", desc: "全国废料价格行情", icon: "♻️", cls: "icon-green" },
+    { name: "报价预测", desc: "价格趋势分析", icon: "📈", cls: "icon-purple" },
+    { name: "今日黄金", desc: "黄金价格实时走势", icon: "💰", cls: "icon-gold" },
+    { name: "金属快讯", desc: "行业新闻动态", icon: "📰", cls: "icon-navy" },
+    { name: "中金信息", desc: "金属行业信息汇总", icon: "📊", cls: "icon-blue" },
+    { name: "7x24 快讯", desc: "全天候行情资讯", icon: "⏰", cls: "icon-cyan" },
+    { name: "历史报价", desc: "铝价历史数据", icon: "📅", cls: "icon-teal" }
+  ];
+
+  // Render website grid
+  function renderWebsites() {
+    var grid = document.getElementById('websiteGrid');
+    var html = '';
+    
+    for (var i = 0; i < websites.length; i++) {
+      var w = websites[i];
+      html += '<a class="website-card" href="javascript:void(0)">';
+      html += '<div class="website-icon ' + w.cls + '">' + w.icon + '</div>';
+      html += '<div class="website-info">';
+      html += '<div class="website-name">' + w.name + '</div>';
+      html += '<div class="website-desc">' + w.desc + '</div>';
+      html += '</div>';
+      html += '</a>';
+    }
+    
+    grid.innerHTML = html;
+  }
+
+  // Download code
+  function downloadCode() {
+    window.open('https://github.com/tongbao2/mini/archive/refs/heads/main.zip', '_blank');
+  }
+
+  // Initialize
+  renderWebsites();
+</script>
+
+</body>
+</html>
