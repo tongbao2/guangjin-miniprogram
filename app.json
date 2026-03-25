@@ -1,0 +1,16 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/web/web"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#1A1D2F",
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "骞块噾缃",
+    "backgroundColor": "#1A1D2F",
+    "backgroundTextStyle": "light",
+    "enablePullDownRefresh": false
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
