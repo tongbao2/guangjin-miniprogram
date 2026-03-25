@@ -1,4 +1,4 @@
-/* 可通桟化 */
+/* 通用样式 */
 .container {
   min-height: 100vh;
 }

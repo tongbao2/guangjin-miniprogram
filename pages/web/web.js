@@ -10,7 +10,11 @@ Page({
         url: url,
         title: getDomain(url)
       })
-      wx.showToast({title: '没有统命．', icon: 'loading', duration: 1000})
+      wx.showToast({
+        title: '加载中...',
+        icon: 'loading',
+        duration: 1000
+      })
     }
   },
   goBack() {
@@ -22,8 +26,8 @@ function getDomain(url) {
   try {
     const match = url.match(/https?:\/\/(www\.)?([^\/]+)/)
     if (match && match[2]) return match[2]
-    return '首块圳'
+    return '广金网'
   } catch {
-    return '首块圳'
-}
+    return '广金网'
+  }
 }

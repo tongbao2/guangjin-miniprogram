@@ -1,4 +1,4 @@
-/* Web项目桟化 */
+/* Web 页面样式 */
 .web-container {
   height: 100vh;
 }
