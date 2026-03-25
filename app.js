@@ -1,0 +1,1 @@
+App({\n  onLaunch() {\n    console.log('監同玉玉项直萍')\n  },\n  globalData: {\n    userInfo: null\n  }\n})
