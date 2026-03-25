@@ -1,0 +1,8 @@
+<view class="web-container">
+  <view class="header">
+    <view class="back-btn" bindtap="goBack">开发</view>
+    <view class="title">{{title}}</view>
+    <view class="placeholder"></view>
+  </view>
+  <web-view src="{{url}}"></web-view>
+</view>
